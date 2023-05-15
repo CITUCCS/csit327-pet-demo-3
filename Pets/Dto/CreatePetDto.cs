@@ -11,5 +11,11 @@ namespace Pets.Dto
         [Required]
         [Range(1,1000)]
         public int Age { get; set; }
+
+        [Required]
+        public string Biography { get; set; }
+
+        [Required]
+        public string Type { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Pets.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Pets.Contexts;
 using Pets.Models;
 
 namespace Pets.Repositories
@@ -14,12 +15,17 @@ namespace Pets.Repositories
 
         public Pet Get(int id)
         {
-            return _context.Pets.Where(p => p.Id == id).FirstOrDefault();
+            return _context.Pets
+                .Where(p => p.Id == id)
+                .Include(p => p.Details) // Fetch dependent entity
+                .FirstOrDefault();
         }
 
         public IEnumerable<Pet> GetAll()
         {
-            return _context.Pets.ToList();
+            return _context.Pets
+                .Include(p => p.Details) // Fetch dependent entity
+                .ToList();
         }
 
         public void Add(Pet pet)
@@ -38,6 +44,8 @@ namespace Pets.Repositories
         {
             pet.Name = updatePet.Name;
             pet.Age = updatePet.Age;
+            pet.Details.Type = updatePet.Details.Type;
+            pet.Details.Biography = updatePet.Details.Biography;
             _context.SaveChanges();
         }
     }

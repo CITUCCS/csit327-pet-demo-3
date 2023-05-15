@@ -25,7 +25,12 @@ namespace Pets.Services
             var petModel = new Pet
             {
                 Name = petDto.Name,
-                Age = petDto.Age
+                Age = petDto.Age,
+                Details = new PetDetails
+                {
+                    Type = petDto.Type,
+                    Biography = petDto.Biography
+                }
             };
 
             _repository.Add(petModel);
@@ -46,7 +51,13 @@ namespace Pets.Services
         public IEnumerable<PetDto> GetAllPets()
         {
             var pets = _repository.GetAll();
-            return pets.Select(p => new PetDto { Id = p.Id, Age = p.Age, Name = p.Name });
+            return pets.Select(p => new PetDto {
+                Id = p.Id,
+                Age = p.Age,
+                Name = p.Name,
+                Biography = p.Details.Biography,
+                Type = p.Details.Type
+            });
         }
 
         public PetDto GetPetById(int id)
@@ -56,7 +67,9 @@ namespace Pets.Services
             {
                 Id = petModel.Id,
                 Name = petModel.Name,
-                Age = petModel.Age
+                Age = petModel.Age,
+                Biography = petModel.Details.Biography,
+                Type = petModel.Details.Type
             };
         }
 
@@ -66,18 +79,38 @@ namespace Pets.Services
 
             if (desiredPet == null)
             {
-                _repository.Add(new Pet { Name = petDto.Name, Id = petDto.Id });
+                _repository.Add(new Pet {
+                    Name = petDto.Name,
+                    Id = petDto.Id,
+                    Age = petDto.Age,
+                    Details = new PetDetails
+                    {
+                        Type = petDto.Type,
+                        Biography = petDto.Biography
+                    }
+                });
                 return petDto;
             }
             else
             {
-                _repository.Update(desiredPet, new Pet { Name = petDto.Name, Id = petDto.Id });
+                _repository.Update(desiredPet, new Pet {
+                    Name = petDto.Name,
+                    Id = petDto.Id,
+                    Age = petDto.Age,
+                    Details = new PetDetails
+                    {
+                        Type = petDto.Type,
+                        Biography = petDto.Biography
+                    }
+                });
                 
                 return new PetDto 
                 {
                     Id = desiredPet.Id,
                     Name = desiredPet.Name,
-                    Age = desiredPet.Age
+                    Age = desiredPet.Age,
+                    Biography = desiredPet.Details.Biography,
+                    Type = desiredPet.Details.Type
                 };
             }
         }
