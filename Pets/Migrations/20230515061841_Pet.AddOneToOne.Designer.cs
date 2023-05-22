@@ -10,7 +10,7 @@ using Pets.Contexts;
 
 namespace Pets.Migrations
 {
-    [DbContext(typeof(PetContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20230515061841_Pet.AddOneToOne")]
     partial class PetAddOneToOne
     {

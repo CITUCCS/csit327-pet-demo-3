@@ -9,5 +9,6 @@ namespace Pets.Dto
         public int Age { get; set; }
         public string Biography { get; set; }
         public string Type { get; set; }
+        public string Owner { get; set; }
     }
 }

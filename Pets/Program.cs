@@ -14,9 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRepository<Pet>, PetRepository>();
+builder.Services.AddScoped<IRepository<Owner>, OwnerRepository>();
 builder.Services.AddScoped<IPetService, PetService>();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
 
-builder.Services.AddDbContext<PetContext>(options =>
+builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });

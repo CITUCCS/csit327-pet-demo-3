@@ -6,9 +6,9 @@ namespace Pets.Repositories
 {
     public class PetRepository : IRepository<Pet>
     {
-        private readonly PetContext _context;
+        private readonly DataContext _context;
 
-        public PetRepository(PetContext context)
+        public PetRepository(DataContext context)
         {
             _context = context;
         }
@@ -18,6 +18,7 @@ namespace Pets.Repositories
             return _context.Pets
                 .Where(p => p.Id == id)
                 .Include(p => p.Details) // Fetch dependent entity
+                .Include(p => p.Owner)
                 .FirstOrDefault();
         }
 
@@ -25,6 +26,7 @@ namespace Pets.Repositories
         {
             return _context.Pets
                 .Include(p => p.Details) // Fetch dependent entity
+                .Include(p => p.Owner)
                 .ToList();
         }
 
@@ -46,6 +48,7 @@ namespace Pets.Repositories
             pet.Age = updatePet.Age;
             pet.Details.Type = updatePet.Details.Type;
             pet.Details.Biography = updatePet.Details.Biography;
+            pet.Owner = updatePet.Owner;
             _context.SaveChanges();
         }
     }

@@ -3,12 +3,13 @@ using Pets.Models;
 
 namespace Pets.Contexts
 {
-    public class PetContext : DbContext
+    public class DataContext : DbContext
     {
-        public PetContext(DbContextOptions options) : base(options)
+        public DataContext(DbContextOptions options) : base(options)
         {
         }
 
         public DbSet<Pet> Pets { get; set; }
+        public DbSet<Owner> Owners { get; set; }
     }
 }

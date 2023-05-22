@@ -55,8 +55,9 @@ namespace Pets.Services
                 Id = p.Id,
                 Age = p.Age,
                 Name = p.Name,
-                Biography = p.Details.Biography,
-                Type = p.Details.Type
+                Biography = p.Details?.Biography ?? String.Empty,
+                Type = p.Details?.Type ?? String.Empty,
+                Owner = p.Owner?.Name ?? String.Empty
             });
         }
 
@@ -68,8 +69,9 @@ namespace Pets.Services
                 Id = petModel.Id,
                 Name = petModel.Name,
                 Age = petModel.Age,
-                Biography = petModel.Details.Biography,
-                Type = petModel.Details.Type
+                Biography = petModel.Details?.Biography ?? String.Empty,
+                Type = petModel.Details?.Type ?? String.Empty,
+                Owner = petModel.Owner?.Name ?? String.Empty 
             };
         }
 
@@ -109,8 +111,8 @@ namespace Pets.Services
                     Id = desiredPet.Id,
                     Name = desiredPet.Name,
                     Age = desiredPet.Age,
-                    Biography = desiredPet.Details.Biography,
-                    Type = desiredPet.Details.Type
+                    Biography = desiredPet.Details?.Biography ?? String.Empty,
+                    Type = desiredPet.Details?.Type ?? String.Empty,
                 };
             }
         }

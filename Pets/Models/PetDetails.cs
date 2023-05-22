@@ -1,6 +1,6 @@
 ﻿namespace Pets.Models
 {
-    // Dependend Entity
+    // Dependent Entity
     public class PetDetails
     {
         public int Id { get; set; }
